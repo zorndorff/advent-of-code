@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "day_01.js",
-  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest *.spec.js"
   },
   "author": "",
   "license": "ISC",

@@ -8,10 +8,10 @@ describe('sumArrayMembers', () => {
 })
 describe('getSlidingIncreaseCount', () => {
   it('Returns correct sliding increase count for single width window', () => {
-    expect(getSlidingIncreaseCount([1,2,3], 1)).toBe(3);
+    expect(getSlidingIncreaseCount([1,2,3], 1)).toBe(2);
   });
 
   it('Returns correct sliding increase count for 3 width window', () => {
-    expect(getSlidingIncreaseCount([1,2,3,1], 3)).toBe(3);
+    expect(getSlidingIncreaseCount([1,2,3,1,2,5], 3)).toBe(1);
   });
 });

@@ -19,7 +19,6 @@ rl.on('line', (input) => {
     increaseCounter ++;
   }
   lastLine = input;
-  console.log(`INCREASE COUNT ${increaseCounter}`);
 });
 
 rl.on('close', () => {
