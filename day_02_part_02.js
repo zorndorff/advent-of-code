@@ -1,33 +1,14 @@
-//https://adventofcode.com/2021/day/1/input
+const { applyMovementAim } = require('./src');
 
-const readline = require('readline');
-const { applyMovement, applyMovementAim } = require('./src');
-const { stdin:input, stdout:output } = require('process');
+module.exports = {
+  process: (inputs) => {
+    const coords = {x: 0, depth: 0, aim: 0};
 
-let rl; 
+    for (const input of inputs) {
+      const [cmd, value] = input.split(' ');
+      applyMovementAim(coords, cmd, parseInt(value));
+    }
 
-const readings = [];
-
-const processInput = () => {
-  const coords = {x: 0, depth: 0, aim: 0};
-
-  rl = readline.createInterface({ input, output });
-
-  rl.on('line', (input) => {
-    const [cmd, value] = input.split(' ');
-    applyMovementAim(coords, cmd, parseInt(value));
-  });
-
-  rl.on('end', () => {
-    console.log('input ended');
-  })
-
-  rl.on('close', () => {
-    console.log('Done processing');
     console.log(`Final ${JSON.stringify(coords)} ${coords.x * coords.depth}`);
-
-  })
+  }
 }
-
-
-processInput();
