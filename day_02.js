@@ -24,7 +24,7 @@ const processInput = () => {
 
   rl.on('close', () => {
     console.log('Done processing');
-    console.log(`Final ${JSON.stringify(coords)} ${coords.x * coords.y}`);
+    console.log(`Final ${JSON.stringify(coords)} ${coords.x * coords.depth}`);
 
   })
 }

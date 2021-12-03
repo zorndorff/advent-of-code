@@ -15,12 +15,12 @@ describe('applyMovement', () => {
   it('up command decreases depth.', () => {
     const coords = {
       x: 0, 
-      depth: 0
+      depth: 5
     };
 
     const output = applyMovement(coords, 'up', 5);
 
-    expect(output.depth).toBe(-5);
+    expect(output.depth).toBe(0);
   });
 
   it('down command increases depth.', () => {
@@ -53,7 +53,7 @@ describe('applyMovementAim', () => {
     };
     const output = applyMovementAim(coords, 'up', 5);
 
-    expect(output.aim).toBe(0);
+    expect(output.aim).toBe(-5);
   });
 
   it('forward X increases your horizontal position by X units', () => {

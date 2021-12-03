@@ -1,7 +1,7 @@
 //https://adventofcode.com/2021/day/1/input
 
 const readline = require('readline');
-const { applyMovement } = require('./src');
+const { applyMovement, applyMovementAim } = require('./src');
 const { stdin:input, stdout:output } = require('process');
 
 let rl; 
@@ -15,7 +15,7 @@ const processInput = () => {
 
   rl.on('line', (input) => {
     const [cmd, value] = input.split(' ');
-    applyMovement(coords, cmd, parseInt(value));
+    applyMovementAim(coords, cmd, parseInt(value));
   });
 
   rl.on('end', () => {
@@ -24,7 +24,7 @@ const processInput = () => {
 
   rl.on('close', () => {
     console.log('Done processing');
-    console.log(`Final ${JSON.stringify(coords)} ${coords.x * coords.y}`);
+    console.log(`Final ${JSON.stringify(coords)} ${coords.x * coords.depth}`);
 
   })
 }

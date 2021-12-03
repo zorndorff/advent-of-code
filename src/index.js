@@ -30,10 +30,10 @@ const applyMovement = (coords, direction, value) => {
       coords.x += value;
     break;
     case 'down':
-      coords.y += value;
+      coords.depth += value;
     break;
     case 'up':
-      coords.y += -value;
+      coords.depth += -value;
     break;
   }
   return coords;
@@ -50,7 +50,7 @@ const applyMovementAim = (coords, direction, value) => {
       coords.aim += value;
     break;
     case 'up':
-      coords.aim += value;
+      coords.aim += -value;
     break;
   }
   return coords;
