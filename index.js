@@ -6,7 +6,8 @@ const program = new Command();
 program
   .version('0.0.1')
   .argument('<file>')
-  .option('-d, --day <daytoprocess>', 'day of the advent')
+  .argument('-d, --day <daytoprocess>', 'day of the advent')
+  .argument('-p, --part <part>', 'Which part to process 1, or 2')
   .option('--debug', 'enable debugging')
   .action((file, options, command) => {
     if (options.debug) {
