@@ -1,5 +1,5 @@
 const sumArrayMembers = (inputs) => {
-  return inputs.reduce((previousValue, currentValue) => previousValue + currentValue);
+  return inputs.reduce((previousValue, coordsValue) => previousValue + coordsValue);
 }
 
 const getSlidingIncreaseCount = (readings, windowSize) => {
@@ -13,13 +13,8 @@ const getSlidingIncreaseCount = (readings, windowSize) => {
 
     if(nextInputs.length > 0) nextTotal = sumArrayMembers(nextInputs);
 
-    if (!lastTotal){
-      console.log('no previous value, no change');
-    } else if (nextTotal > lastTotal) {
+    if (lastTotal && nextTotal > lastTotal) {
       totalIncreasing ++;
-      console.log(`last: ${lastTotal} - next ${nextTotal} - increased`);
-    } else {
-      console.log(`last: ${lastTotal} - next ${nextTotal} - decreased`);
     }
 
     lastTotal = nextTotal;
@@ -29,7 +24,42 @@ const getSlidingIncreaseCount = (readings, windowSize) => {
   return totalIncreasing;
 }
 
+const applyMovement = (coords, direction, value) => {
+  switch (direction) {
+    case 'forward':
+      coords.x += value;
+    break;
+    case 'down':
+      coords.y += value;
+    break;
+    case 'up':
+      coords.y += -value;
+    break;
+  }
+  return coords;
+}
+
+
+const applyMovementAim = (coords, direction, value) => {
+  switch (direction) {
+    case 'forward':
+      coords.x += value;
+      coords.depth += coords.aim * value; 
+    break;
+    case 'down':
+      coords.aim += value;
+    break;
+    case 'up':
+      coords.aim += value;
+    break;
+  }
+  return coords;
+}
+
+
 module.exports = {
   getSlidingIncreaseCount,
   sumArrayMembers,
+  applyMovement,
+  applyMovementAim,
 };
