@@ -1,4 +1,4 @@
-const { getSlidingIncreaseCount, sumArrayMembers } = require('./src');
+const { getSlidingIncreaseCount, sumArrayMembers } = require('./functions');
 
 describe('sumArrayMembers', () => {
   it('Sums array members', () => {

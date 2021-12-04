@@ -56,10 +56,71 @@ const applyMovementAim = (coords, direction, value) => {
   return coords;
 }
 
+function filledArray(size, value) {
+  return Array.apply(null, Array(size)).map(Number.prototype.valueOf,value);
+}
+
+const applyRow = (accumulator, row) => {
+  let index = 0;
+  for (const col of row) {
+    if(col === '1'){
+      accumulator[index] ++;
+    }
+    index ++;
+  }
+  return accumulator;
+}
+
+const sumArrayColumns = (input) => {
+  const totals = filledArray(input[0].length, 0);
+  debugger;
+  return input.reduce((accumulator, row) => applyRow(accumulator, row), totals);
+}
+
+const calculateGamma = (input, setLength) => {
+  const gamma = [];
+
+  for (const col of input) {
+    debugger;
+    if (col > setLength / 2) {
+      gamma.push('1');
+      continue;
+    }
+    gamma.push('0');
+  }
+
+  return parseInt(gamma.join(''), 2);
+};
+
+const calculateEpsilon = (input, setLength) => {
+  const epsilon = [];
+
+  for (const col of input) {
+    if (col > setLength / 2) {
+      epsilon.push('0');
+      continue;
+    }
+
+    epsilon.push('1');
+  }  
+  return parseInt(epsilon.join(''), 2);
+}
+
+const getPowerConsumption = (input) => {
+  const summed = sumArrayColumns(input);
+  const gamma = calculateGamma(summed, input.length);
+  const epsilon = calculateEpsilon(summed, input.length);
+  return gamma * epsilon;
+}
 
 module.exports = {
+  getPowerConsumption,
+  calculateEpsilon,
+  calculateGamma,
   getSlidingIncreaseCount,
   sumArrayMembers,
+  sumArrayColumns,
+  applyRow,
   applyMovement,
   applyMovementAim,
 };

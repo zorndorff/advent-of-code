@@ -1,6 +1,6 @@
 //https://adventofcode.com/2021/day/1/input
 
-const { applyMovement } = require('./src');
+const { applyMovement } = require('./functions');
 
 module.exports = {
   process: (inputs) => {

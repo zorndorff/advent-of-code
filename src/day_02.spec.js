@@ -1,4 +1,4 @@
-const { applyMovement, applyMovementAim } = require('./src');
+const { applyMovement, applyMovementAim } = require('./functions');
 
 describe('applyMovement', () => {
   it('forward command increases x axis.', () => {
