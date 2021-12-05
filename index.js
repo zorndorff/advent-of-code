@@ -17,7 +17,7 @@ program
     console.log(`executing advent day ${options.day} part ${options.part} with input file ${file}`);
     
     const input = fs.readFileSync(path.join(__dirname, file)).toString().split('\n');
-    const adventProcessor = require(path.join(__dirname, 'src', `day_${options.day}`));
-    adventProcessor.process(input);
+    const adventProcessor = require(path.join(__dirname, 'src', `day_${options.day}${options.part ? '_part_' + options.part : ''}`));
+    adventProcessor.process(input, options.debug);
   })
   .parse();
