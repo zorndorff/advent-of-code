@@ -63,7 +63,11 @@ function draw(bingoState , drawNumber) {
 
         if(columnHitCounts.includes(bingoState.dimensions.y) || rowHitCounts.includes(bingoState.dimensions.x)){
           console.log(`Bingo on board ${boardIndex}, total score ${possibleScore} on draw ${drawNumber}, answer ${possibleScore * drawNumber}`);          
-          process.exit(0);
+          return {
+            board: boardIndex,
+            possibleScore, 
+            
+          }
         }
       }
       i++;
