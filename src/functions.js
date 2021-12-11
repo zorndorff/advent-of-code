@@ -74,7 +74,6 @@ const applyRow = (accumulator, row) => {
 
 const sumArrayColumns = (input) => {
   const totals = filledArray(input[0].length, 0);
-  debugger;
   return input.reduce((accumulator, row) => applyRow(accumulator, row), totals);
 };
 
@@ -82,7 +81,6 @@ const calculateGamma = (input, setLength) => {
   const gamma = [];
 
   for (const col of input) {
-    debugger;
     if (col > setLength / 2) {
       gamma.push('1');
       continue;
@@ -190,4 +188,5 @@ module.exports = {
   calculateLifeSupportValues,
   findByBit,
   filterInputByCommonFlags,
+  filledArray,
 };
