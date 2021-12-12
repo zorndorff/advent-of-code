@@ -49,7 +49,8 @@ const setupBingoState = (inputs) => {
 function draw(bingoState , drawNumber) {
   let i = 0;
   let boardIndex = 0;
-
+  const hasWinner = false;
+  let winner = {};
   for (let [board, scores, possibleScore] of bingoState.boards) {
     i = 0;
     for (const row of board) {
@@ -63,10 +64,11 @@ function draw(bingoState , drawNumber) {
 
         if(columnHitCounts.includes(bingoState.dimensions.y) || rowHitCounts.includes(bingoState.dimensions.x)){
           console.log(`Bingo on board ${boardIndex}, total score ${possibleScore} on draw ${drawNumber}, answer ${possibleScore * drawNumber}`);          
+          
           return {
             board: boardIndex,
             possibleScore, 
-            
+            drawNumber,  
           }
         }
       }
@@ -82,7 +84,7 @@ function draw(bingoState , drawNumber) {
     }
     boardIndex ++;
   }
-
+  return 
 }
 
 module.exports = {
@@ -90,6 +92,7 @@ module.exports = {
     const bingoBoards = setupBingoState(inputs);
     
     for (const drawNumber of bingoBoards.draws) {
+      debugger;
       draw(bingoBoards, drawNumber);
     }
   },
