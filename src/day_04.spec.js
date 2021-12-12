@@ -54,8 +54,12 @@ describe('day 04', () => {
       ]}
     );
   });
-  it('doBingoDraws: returns the winning board.', () => {
-    const result = day_04.process(input_day_04);
-    
+  it('process: gets the right answer', () => {
+    const result = day_4.process(Array.from(input_day_04));
+
+    expect(result).toEqual([{
+      possibleScore: 188,
+      score: 4512
+    }]);
   })
 });
