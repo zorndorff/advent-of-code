@@ -21,45 +21,50 @@ const input_day_04 = [
   '18  8 23 26 20',
   '22 11 13  6  5',
   '2  0 12  3  7',
-  ''
+  '',
 ];
 
 describe('day 04', () => {
   it('parseBingoInput: parses the inputs into bingo boards', () => {
     const result = setupBingoState(input_day_04.slice(0, 7));
-    expect(result).toEqual(
-      {
-        draws: [7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1],
-        dimensions: {
-          x: 5,
-          y: 5
-        },
-        scores: [],
-        boards: [[
+    expect(result).toEqual({
+      draws: [
+        7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24, 10, 16, 13, 6, 15, 25, 12, 22,
+        18, 20, 8, 19, 3, 26, 1,
+      ],
+      dimensions: {
+        x: 5,
+        y: 5,
+      },
+      scores: [],
+      boards: [
+        [
           [
-            [22,13,17, 11, 0],
-            [8, 2,  23, 4, 24],
-            [21, 9, 14, 16,  7],
-            [6, 10, 3, 18,  5],
+            [22, 13, 17, 11, 0],
+            [8, 2, 23, 4, 24],
+            [21, 9, 14, 16, 7],
+            [6, 10, 3, 18, 5],
             [1, 12, 20, 15, 19],
-          ], [
-            [ 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0],
           ],
-          300
+          [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          300,
         ],
-      ]}
-    );
+      ],
+    });
   });
   it('process: gets the right answer', () => {
     const result = day_4.process(Array.from(input_day_04));
 
-    expect(result).toEqual([{
-      possibleScore: 188,
-      score: 4512
-    }]);
-  })
+    expect(result).toEqual([
+      { board: 2, draw: 24, score: 188, total: 4512 },
+      { board: 0, draw: 16, score: 137, total: 2192 },
+      { board: 1, draw: 13, score: 148, total: 1924 },
+    ]);
+  });
 });

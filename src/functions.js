@@ -64,7 +64,7 @@ function filledArray(size, value) {
 const applyRow = (accumulator, row) => {
   let index = 0;
   for (const col of row) {
-    if (col === '1') {
+    if (col === '1' || col === 1) {
       accumulator[index]++;
     }
     index++;

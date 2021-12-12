@@ -1,10 +1,23 @@
 const { filledArray, sumArrayMembers, sumArrayColumns } = require('./functions');
 
-const scoreBoard = (board, boardSize) => {
-  const bingoRow = board[1].indexOf(boardSize.x);
-  const scoreLine = board[0].splice(bingoRow, 1)[0];
+const scoreBoard = (boardValues, scoreState) => {
 
-  return sumArrayMembers(scoreLine);
+  let score = 0;
+
+  const flatValues = boardValues.reduce((acc, row) => {
+    return acc.concat(row);
+  }, []);
+
+  const flatScores = scoreState.reduce((acc, row) => {
+    return acc.concat(row);
+  }, []);
+
+  for (let index = 0; index < flatValues.length; index++) {
+    if(flatScores.at(index) !== 1){
+      score += flatValues[index];
+    }
+  }
+  return score;
 }
 
 const setupBingoState = (inputs) => {
@@ -49,6 +62,7 @@ const setupBingoState = (inputs) => {
 function draw(bingoState , drawNumber) {
   let i = 0;
   let boardIndex = 0;
+  const results = [];
 
   for (const [board, scores] of bingoState.boards) {
     
@@ -66,64 +80,47 @@ function draw(bingoState , drawNumber) {
 
         possibleScore = bingoState.boards[boardIndex][2] = possibleScore - drawNumber;
         
-        console.log(`registered hit on board[${boardIndex}], row [${i}] column [${row.indexOf(drawNumber)}], possible score is now ${possibleScore}`);
-
         const columnHitCounts = sumArrayColumns(scores);
-        debugger;
-        console.log(`column counts ${JSON.stringify(columnHitCounts)}`);
 
         const rowHitCounts = scores.map((scoreRow) => sumArrayMembers(scoreRow));
 
-        if(columnHitCounts.includes(bingoState.dimensions.y)){
+        if(columnHitCounts.includes(bingoState.dimensions.y) || rowHitCounts.includes(bingoState.dimensions.x)){
 
-          console.log(`Column Bingo on board ${boardIndex}, total score ${possibleScore} on draw ${drawNumber}, answer ${possibleScore * drawNumber}`);          
+          console.log(`Bingo on board ${boardIndex}, total score ${possibleScore} on draw ${drawNumber}, answer ${possibleScore * drawNumber}`);          
           //scores.forEach((line) => console.log(line.join(',')));
           bingoState.boards[boardIndex][3] = true;
-          return {
-            board: boardIndex,
-            possibleScore,
-          }
-        }
+          const score = scoreBoard(board, scores);
 
-        if(rowHitCounts.includes(bingoState.dimensions.x)){
-          console.log(`Row Bingo on board ${boardIndex}, total score ${possibleScore} on draw ${drawNumber}, answer ${possibleScore * drawNumber}`);          
-          //scores.forEach((line) => console.log(line.join(',')));
-          bingoState.boards[boardIndex][3] = true;
-          return {
+          results.push({
             board: boardIndex,
-            possibleScore,
-          }
+            draw: drawNumber,
+            score,
+            total: score * drawNumber,
+          });
         }
       }
       i++;
     }
 
-    if (false){ 
-      
-      const score = scoreBoard(bingoState.boards[boardIndex], bingoState.dimensions);
-
-      console.log(`Bingo on board ${boardIndex}, total score ${score} on draw ${drawNumber}, answer ${score * drawNumber}`);
-      process.exit();
-    }
     boardIndex ++;
   }
-  return false;
+
+  return results;
 }
 
 module.exports = {
   process: (inputs) => {
     const bingoBoards = setupBingoState(inputs);
-    const results = [];
+    let results = [];
     for (const drawNumber of bingoBoards.draws) {
       const result = draw(bingoBoards, drawNumber);
-      if (result !== false){
-        results.push({
-          score: result.possibleScore * drawNumber,
-          possibleScore: result.possibleScore,
-          drawNumber,
-        });
+      if(result.length > 0) {
+        debugger;
+        results = results.concat(result);
+        console.log(`Bingo on board ${result.board} for draw ${drawNumber} with score:${result.score} and total ${result.total}`);
       }
     }
+
     return results;
   },
   setupBingoState,
