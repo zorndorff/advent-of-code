@@ -61,6 +61,10 @@ function filledArray(size, value) {
   return Array.apply(null, Array(size)).map(Number.prototype.valueOf, value);
 }
 
+function filledAnyArray(size, value) {
+  return Array.apply(null, Array(size)).map(() => JSON.parse(JSON.stringify(value)));
+}
+
 const applyRow = (accumulator, row) => {
   let index = 0;
   for (const col of row) {
@@ -175,6 +179,7 @@ const calculateLifeSupportValues = (input, supportSystem, debug) => {
   return parseInt(workingSet[0], 2);
 };
 
+
 module.exports = {
   getPowerConsumption,
   calculateEpsilon,
@@ -189,4 +194,5 @@ module.exports = {
   findByBit,
   filterInputByCommonFlags,
   filledArray,
+  filledAnyArray,
 };
