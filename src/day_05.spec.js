@@ -21,7 +21,8 @@ describe('day 05', () => {
   });
   it('process: returns the correct number of overlapping points', () => {
     const result = day.process(input_day_05.split('\n'));
-    expect(result.overlapPoints).toEqual(5);
+
+    expect(result.overlaps).toEqual(12);
   })
 
 });

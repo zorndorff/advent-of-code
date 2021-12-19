@@ -36,7 +36,7 @@ function parseInput(inputs) {
 }
 
 module.exports = {
-  process: (inputs) => {
+  process: (inputs, debug = false) => {
 
     const {lineSegments, grid} = parseInput(inputs);
 
@@ -44,25 +44,27 @@ module.exports = {
       const [[x1, y1], [x2, y2]] = segment;
       let cursorX = x1;
       let cursorY = y1;
-      if(y2 === y1 || x2 === x1){
-        while(cursorX !== x2 || cursorY !== y2){
-          cursorX += (x2 === x1)? 0 : x2 < x1 ? -1 : 1;
-          cursorY += (y2 === y1)? 0 : y2 < y1 ? -1 : 1;
-          grid[cursorY][cursorX] += 1;
-        }
-        grid[y1][x1] += 1;
+      while(cursorX !== x2 || cursorY !== y2){
+        cursorX += (x2 === x1)? 0 : x2 < x1 ? -1 : 1;
+        cursorY += (y2 === y1)? 0 : y2 < y1 ? -1 : 1;
+        grid[cursorY][cursorX] += 1;
       }
-      console.log(grid.map((row) => row.join(',')).join('\n'))
+      grid[y1][x1] += 1;
+    
+      if(debug){
+        console.log(grid.map((row) => row.join(',')).join('\n'))
+      }
     }
 
-    const overLapPoints = grid.reduce((acc, nextValue) => {
-      return acc + (nextValue.filter((rowValue) => rowValue >= 2).length - 1);
+    const overlaps = grid.reduce((acc, nextValue) => {
+      const rowOverlaps = nextValue.filter((rowValue) => rowValue >= 2); 
+      return acc + rowOverlaps.length;
     }, 0);
     
-    console.log(`Overlap >=2 ${overLapPoints}`);
+    console.log(`Overlap >=2 ${overlaps}`);
     
     return {
-      overLapPoints
+      overlaps
     }
   },
   parseInput,
