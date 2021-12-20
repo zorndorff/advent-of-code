@@ -1,29 +1,21 @@
+const { filledArray, sumArrayMembers } = require('./functions');
+
 class Aquarium {
-  constructor(initialAges){
-    this.fishes = initialAges.map((age) => new Fish(age));
+  constructor(initialFishes){
+    this.fishes = filledArray(9, 0);
+    initialFishes.forEach(age => {
+      this.fishes[age] ++;
+    });
   }
   step() {
-    for (const fish of this.fishes) {
-      const step = fish.step();
-      if (step !== null){
-        this.fishes.push(step);
-      }
-    }
-  }
-}
+    const timedOutFishes = this.fishes.shift();
 
-class Fish {
-  constructor(initialTimer) {
-    this.initialTimerValue = initialTimer;
-    this.timer = initialTimer;
+    this.fishes.push(timedOutFishes);
+    this.fishes[6] += timedOutFishes;
+    console.log(this.fishes.join(','));
   }
-  step(){
-    if(this.timer <= 0){
-      this.timer = 6;
-      return new Fish(9);
-    }
-    this.timer --;
-    return null;
+  count() {
+    return sumArrayMembers(this.fishes);
   }
 }
 
@@ -36,7 +28,7 @@ module.exports = {
       aq.step();
     }
 
-    console.log(`${aq.fishes.length} fishes`);
-    return aq;
+    console.log(`${aq.count()} fishes`);
+    return aq.count();
   }
 }
